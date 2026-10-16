@@ -1,0 +1,17 @@
+# Core dependencies (already installed in environment)
+# numpy>=2.4.0,<3.0
+# pandas>=3.0.0,<4.0
+# scikit-learn>=1.8.0,<2.0
+# scipy>=1.17.0,<2.0
+# matplotlib>=3.10.0,<4.0
+
+# Quantum framework
+# PennyLane with default simulator
+pennylane>=0.36.0,<0.37
+
+# Testing
+pytest>=8.4.0,<9.0
+pytest-cov>=6.0.0,<7.0
+
+# Utilities
+pyyaml>=6.0,<7.0

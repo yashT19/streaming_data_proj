@@ -1,0 +1,99 @@
+# Experiment Configuration
+# Quantum vs Classical Streaming Data Analytics
+
+project:
+  name: "Quantum vs Classical Streaming Analytics"
+  version: "0.1.0"
+  description: "Comparative study of classical and quantum ML for streaming data"
+
+dataset:
+  name: "breast_cancer"
+  source: "scikit-learn"
+  random_state: 42
+  test_size: 0.2
+  validation_size: 0.2
+  train_size: 0.6
+  stratified: true
+
+preprocessing:
+  classical:
+    scaler: "standard"  # StandardScaler
+    random_state: 42
+  quantum:
+    n_features: 4
+    method: "pca"  # PCA for feature reduction to 4 features
+    random_state: 42
+    scaler: "standard"
+
+streaming:
+  batch_sizes: [16, 32, 64]
+  stream_lengths: [100, 200, 400]
+  random_state: 42
+
+classical_model:
+  name: "SGDClassifier"
+  loss: "log_loss"  # For binary or multiclass classification
+  penalty: "l2"
+  random_state: 42
+  n_jobs: -1
+  warm_start: false
+  eta0: 0.01
+
+quantum_model:
+  framework: "pennylane"
+  simulator: "default.qubit"
+  n_qubits: 4
+  n_layers: 2
+  encoding: "angle"
+  
+  # Optimizer settings
+  optimizer: "adam"
+  learning_rate: 0.01
+  max_iterations: 100
+  
+  # Quantum-specific settings
+  shots: null  # None = exact (statevector), integer = shot-based
+  device: "cpu"
+  random_state: 42
+
+experiments:
+  # Experiment A: Basic performance comparison
+  performance:
+    enabled: true
+    description: "Compare accuracy, precision, recall, F1 on test set"
+    repetitions: 1
+
+  # Experiment B: Batch-size sensitivity
+  batch_sensitivity:
+    enabled: true
+    description: "Measure timing and metrics across batch sizes"
+    batch_sizes: [16, 32, 64]
+    repetitions: 3
+
+  # Experiment C: Stream-length sensitivity
+  stream_sensitivity:
+    enabled: true
+    description: "Evaluate performance as training stream grows"
+    stream_lengths: [100, 200, 400]
+    repetitions: 3
+
+  # Experiment D: Concept drift (optional)
+  concept_drift:
+    enabled: false
+    description: "Test performance under synthetic distribution shift"
+    drift_type: "gradual"
+    drift_magnitude: 0.5
+
+execution:
+  mode: "smoke"  # "smoke", "quick", "full"
+  max_workers: 1
+  timeout_seconds: 3600
+  log_level: "INFO"
+
+output:
+  results_dir: "results/"
+  format: "csv"  # "csv" or "json"
+  save_raw: true
+  save_summary: true
+  generate_plots: true
+  plot_format: "png"
