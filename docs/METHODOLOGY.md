@@ -207,6 +207,185 @@ Quantum circuits using angle encoding expect input features in a bounded range (
 
 ---
 
+## 7. Batch Generation and Streaming
+
+### Overview
+
+The **stream simulator** processes training data as deterministic batches, simulating a streaming pipeline where models receive data in sequential chunks. This is distinct from true real-time streaming but enables controlled experimentation with batch-based learning algorithms.
+
+### Batching Procedure
+
+**Input**:
+- Training features: (341, 30) for classical or (341, 4) for quantum
+- Training labels: (341,)
+- Batch size: User-specified (16, 32, 64, or any positive integer)
+- Random seed: 42 (reproducible shuffling)
+
+**Process**:
+
+1. **Initialize StreamSimulator**
+   ```
+   StreamSimulator(X_train, y_train, batch_size=32, random_state=42, shuffle=True)
+   ```
+
+2. **Deterministic Shuffling** (if enabled)
+   - Seed: Fixed random_state (default 42)
+   - Method: np.random.RandomState(seed).permutation(n_records)
+   - Produces: Shuffled order of record indices
+
+3. **Sequential Batching**
+   - Partition shuffled data into contiguous chunks
+   - Chunk size: Requested batch_size
+   - Final chunk: May be smaller if n_records % batch_size ≠ 0
+
+4. **Metadata Emission**
+   - Per-batch metadata:
+     - `batch_index`: 0-based batch number
+     - `batch_size`: Actual records in this batch
+     - `cumulative_records`: Total records emitted so far
+     - `is_final_batch`: True for the last batch
+
+5. **Yield**
+   - Emit: (X_batch, y_batch, metadata)
+   - Continue until all records exhausted
+
+**Output**:
+- Multiple batches, each containing:
+  - Feature matrix: shape (batch_size or less, n_features)
+  - Label vector: shape (batch_size or less,)
+  - Metadata dictionary
+
+### Supported Batch Sizes
+
+| Batch Size | Recommended For | Notes |
+|-----------|----------------|-------|
+| 16 | Classical small-batch learning | Default for experiments, good for gradient variability |
+| 32 | General-purpose | Common in ML practice, balances gradient/memory |
+| 64 | Large-batch updates | Fewer batches, noisier gradients |
+| Any positive integer | Custom scenarios | Must be explicitly specified |
+
+### Batch Arithmetic (Training Dataset: 341 Records)
+
+| Batch Size | Batches | Final Batch Size | Cumulative Coverage |
+|-----------|---------|------------------|-------------------|
+| 16 | 22 | 5 | 16×21 + 5 = 341 |
+| 32 | 11 | 21 | 32×10 + 21 = 341 |
+| 64 | 6 | 21 | 64×5 + 21 = 341 |
+
+### Record Ordering
+
+1. **Shuffle Phase** (deterministic with seed)
+   - Record order: np.random.RandomState(42).permutation(341)
+   - Same order on each epoch with same seed
+   - Features and labels shuffled together (co-shuffled)
+
+2. **Batch Phase** (sequential)
+   - Batch 0: Shuffled records [0:16]
+   - Batch 1: Shuffled records [16:32]
+   - Batch 2: Shuffled records [32:48]
+   - ...
+   - Batch 21: Shuffled records [336:341] (5 records)
+
+3. **Alignment Guarantee**
+   - Feature at position i in X_batch aligns with label at position i in y_batch
+   - Co-shuffling ensures this is preserved across stream
+
+### Edge Cases and Behavior
+
+#### 1. Batch Size > Dataset Size
+- **Input**: 100 records, batch_size=256
+- **Output**: 1 batch with 100 records
+- **Behavior**: All records emitted as single batch
+
+#### 2. Batch Size Equals Dataset Size
+- **Input**: 100 records, batch_size=100
+- **Output**: 1 batch with 100 records
+- **Behavior**: Equivalent to full-batch learning
+
+#### 3. Batch Size Divides Evenly
+- **Input**: 96 records, batch_size=32
+- **Output**: 3 batches, each with 32 records
+- **Behavior**: No remainder batch
+
+#### 4. Empty Dataset
+- **Input**: 0 records
+- **Output**: ValueError raised
+- **Behavior**: Data validation rejects empty input
+
+#### 5. Single Record
+- **Input**: 1 record, batch_size=32
+- **Output**: 1 batch with 1 record
+- **Behavior**: All data in first batch
+
+#### 6. Invalid Batch Size
+- **Invalid inputs**: 0, -32, 3.14, ∞, NaN
+- **Behavior**: ValueError raised with clear message
+- **Validation**: Checked during StreamSimulator initialization
+
+### Reproducibility
+
+**Determinism Guarantee**:
+
+With same random_state and input data:
+1. Shuffle order is identical
+2. Batch boundaries are identical
+3. Batch contents are identical
+4. Metadata is identical
+
+**Verification**:
+```python
+sim1 = StreamSimulator(X, y, batch_size=32, random_state=42)
+sim2 = StreamSimulator(X, y, batch_size=32, random_state=42)
+
+# Both simulators produce identical batches
+for (X1, y1, _), (X2, y2, _) in zip(sim1.stream_batches(), sim2.stream_batches()):
+    assert np.allclose(X1, X2) and np.array_equal(y1, y2)  # ✓ Always true
+```
+
+### Implementation Details
+
+**File**: `src/stream_simulator.py`
+
+**Classes**:
+- `StreamSimulator`: Main class for batch streaming
+  - `__init__()`: Initialize with data and batch_size
+  - `stream_batches()`: Generator yielding batches
+  - `validate_stream()`: Verify all records emitted exactly once
+  - `get_config()`: Get current configuration
+
+**Functions**:
+- `stream_batches()`: Convenience function (functional interface)
+
+**Validation**:
+- All records emitted exactly once ✓
+- No records duplicated ✓
+- No records missing ✓
+- Feature-label alignment preserved ✓
+- Batch sizes respect limits ✓
+- Metadata consistent with batch contents ✓
+
+### Simulated Streaming vs. Real-Time Infrastructure
+
+**This Implementation** (Simulated):
+- ✓ Batch-based, deterministic order
+- ✓ Preprocessed, finite dataset
+- ✓ No network latency or failures
+- ✓ Reproducible with fixed seed
+- ✓ All data loaded in memory
+- ✓ Suitable for controlled ML experiments
+
+**Real-Time Infrastructure** (Not implemented):
+- ✗ Event-driven, dynamic ordering
+- ✗ Online preprocessing or adaptation
+- ✗ Network I/O, retries, buffering
+- ✗ Non-deterministic order (typically)
+- ✗ Streaming from external sources
+- ✗ Requires distributed systems
+
+**Implication**: Results from this study **cannot directly extrapolate** to production streaming systems. The batch structure, timing, and ordering differ significantly.
+
+---
+
 ## 8. Evaluation Metrics
 
 ### Primary Metrics
