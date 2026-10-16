@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.Python
+.eggs/
+.env
+.venv
+venv/
+ENV/
+env/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+
+# Results and artifacts
+results/*.csv
+results/*.json
+results/*.png
+results/*.pdf
+results/plots/
+*.tmp
+*.log
+
+# Quantum framework caches
+__pycache__/
+.pytest_cache/

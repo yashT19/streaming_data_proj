@@ -1,0 +1,239 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                     3-MINUTE STREAMLIT DEMO SCRIPT                           ║
+║                          READ EXACTLY AS WRITTEN                             ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+⏱️  TOTAL TIME: 3 MINUTES (30 seconds per section)
+📍 ACTION: Click through sidebar sections as you speak
+🎯 GOAL: Touch all 6 sections, show competence, invite questions
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[START WITH BROWSER OPEN TO: http://localhost:8501]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 SECTION 1: OVERVIEW (0:00-0:30)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Overview in sidebar]
+
+SAY:
+
+"This interactive dashboard visualizes our complete study comparing quantum and 
+classical machine learning on streaming medical data.
+
+[POINT TO TOP METRICS]
+
+We conducted 42 experiments with 100% success. Classical achieved 87.97% accuracy 
+versus quantum's 75.44%, and was 912 times faster.
+
+[SCROLL DOWN BRIEFLY]
+
+The study used the Breast Cancer Wisconsin dataset - 569 samples, stratified 
+split, with verified zero data leakage."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔬 SECTION 2: PROBLEM & METHODOLOGY (0:30-1:00)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Problem & Methodology in sidebar]
+
+SAY:
+
+"Our research question: Can quantum ML compete with classical methods on 
+streaming data?
+
+[POINT TO METHODOLOGY SECTION]
+
+We used rigorous protocols - classical with 30 features using SGDClassifier 
+with incremental learning, quantum with 4 PCA-reduced features on a 4-qubit 
+circuit.
+
+[SCROLL TO EXPERIMENTS TABLE]
+
+Three experiment types: performance comparison, batch sensitivity, and stream 
+length sensitivity - all with fixed seed 42 for reproducibility."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 SECTION 3: RESULTS & METRICS (1:00-1:30)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Results & Metrics in sidebar]
+
+SAY:
+
+"Here are the results. Classical outperformed across all metrics except recall.
+
+[POINT TO FIRST CHART - Accuracy & F1]
+
+Notice classical's clear advantage in accuracy and F1-score.
+
+[POINT TO SECOND CHART - Time]
+
+And the execution time difference is dramatic - quantum took over 11 seconds 
+versus classical's 0.02 seconds.
+
+[SCROLL TO BOTTOM CHART]
+
+The log-scale visualization really shows the 912 times speed difference."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ SECTION 4: PERFORMANCE ANALYSIS (1:30-2:00) ⭐ MOST IMPORTANT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Performance Analysis in sidebar]
+
+SAY:
+
+"This section explains WHY classical won - the most critical insight.
+
+[POINT TO THE 4 REASONS]
+
+Four key reasons: First, quantum circuits run on CPU simulator - expensive 
+matrix operations. Second, different training strategies - classical learns 
+from all 341 records, quantum trains once on 32. Third, feature reduction 
+constraints. Fourth, honest assessment - these results don't extrapolate to 
+real quantum hardware.
+
+[SCROLL TO CHARTS]
+
+The batch size and stream length charts confirm classical adapts and learns, 
+while quantum performance stays flat."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SECTION 5: VERIFICATION & AUDIT (2:00-2:30)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Verification & Audit in sidebar]
+
+SAY:
+
+"Every component was independently verified.
+
+[POINT TO CHECKMARKS]
+
+42 experiments, zero failures, 100% reproducible with fixed seed, zero data 
+leakage confirmed.
+
+[SCROLL TO LIMITATIONS]
+
+We're transparent about limitations - simulated streaming, small dataset, 
+CPU-only quantum. These are documented, not hidden.
+
+[POINT TO BOTTOM METRICS]
+
+The data integrity summary shows all metrics are valid and distributions are 
+as expected."
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 SECTION 6: KEY INSIGHTS (2:30-3:00)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[CLICK: Key Insights in sidebar]
+
+SAY:
+
+"In conclusion, this study demonstrates rigorous methodology, reproducibility, 
+and professional quality.
+
+[POINT TO SUCCESS CRITERIA]
+
+Classical wins decisively in this setup - 87.97% versus 75.44% accuracy, 
+912 times faster. But we're honest: this is CPU simulation overhead, not a 
+fundamental quantum limitation.
+
+[SCROLL TO BOTTOM]
+
+The study is publication-ready, all criteria met, all code reproducible.
+
+[LOOK AT PROFESSOR]
+
+This dashboard shows all 42 experiments live from the data. Any questions?"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+END OF SCRIPT - OPEN FOR Q&A
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TOTAL TIME: Exactly 3 minutes (30 seconds per section)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 TIMING BREAKDOWN:
+
+0:00-0:30  →  Overview (introduce study, show headline numbers)
+0:30-1:00  →  Problem & Methodology (explain approach)
+1:00-1:30  →  Results & Metrics (show the data)
+1:30-2:00  →  Performance Analysis (explain WHY - most important)
+2:00-2:30  →  Verification & Audit (build credibility)
+2:30-3:00  →  Key Insights (conclude professionally)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 DELIVERY TIPS:
+
+✓ Speak clearly and confidently
+✓ Point to charts as you mention them
+✓ Click sidebar sections smoothly
+✓ Don't rush - 30 seconds per section is enough
+✓ End with "Any questions?" to invite discussion
+✓ Keep moving - don't get stuck on one section
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 KEY NUMBERS TO REMEMBER (In Case You're Asked):
+
+Classical:  87.97% accuracy, 0.012s, 89.04% precision, 91.55% recall
+Quantum:    75.44% accuracy, 11.13s, 74.16% precision, 92.96% recall
+Total:      42 experiments, 100% success, zero failures
+Speedup:    912× faster (Classical wins)
+Dataset:    569 samples, 341 train, 114 test
+Features:   30 (classical), 4 (quantum via PCA)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎤 EMERGENCY BACKUP (If time runs out after section 4):
+
+[AFTER PERFORMANCE ANALYSIS, IF RUNNING OUT OF TIME]
+
+SAY:
+
+"To save time, let me summarize: We verified everything - 42 experiments, 
+100% success rate, fully reproducible. All limitations documented. Classical 
+wins on this setup: 87.97% versus 75.44%, 912 times faster. This is 
+publication-ready research. Questions?"
+
+[THEN WAIT FOR Q&A]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 PRE-DEMO CHECKLIST:
+
+□ Browser open to http://localhost:8501
+□ Streamlit app running (check it loads)
+□ This script visible (on second monitor or printed)
+□ Practice once before the actual demo
+□ Take a deep breath - you've got this!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ CONFIDENCE BOOSTERS:
+
+• You have 42 verified experiments
+• Every number is backed by real data
+• Everything is reproducible
+• You're honest about limitations
+• This is publication-quality work
+
+YOU'RE READY TO IMPRESS! 🚀
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
